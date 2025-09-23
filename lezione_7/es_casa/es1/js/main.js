@@ -5,44 +5,67 @@
 let pageCounter = 1;
 let totalPages = 0;
 let isLoaded = false;
+var num_page = 1;
+var dataButton = document.querySelector("#dataButton");
+var path = "https://reqres.in/api/users?page=";
+dataButton.innerHTML = 'Get Colleagues ' + num_page;
 
 
 //////////////////////////////////////////////////////
-// FUNZIONE COSTRUISCI TABELLA
+// FUNZIONI LIBRERIA
+
+// cambia colleghi (cambia il numero pagina da richiedere a reqres.in/api)
+const cambia_colleghi = () => {
+  if (num_page == 1) {
+    path += num_page;
+    num_page = 2;
+    dataButton.innerHTML = 'Get Colleagues ' + num_page;
+    return path;
+  }
+  else if (num_page == 2) {
+    path += num_page;
+    num_page = 1;
+    dataButton.innerHTML = 'Get Colleagues ' + num_page;
+    return path;
+  }
+}
+
+// costruisci tabella
 const buildTable = (data) => {
 
-  //carico il container e ci appendo dentro un elemento 'table'
   let container = document.querySelector("#container");
-  let table = document.createElement('table');
-  container.append(table);
+  let table;
+
+  if (container.innerHTML === "") {
+    table = document.createElement('table');
+    container.append(table);
+  }
+  else {
+    container.innerHTML = ""
+    table = document.createElement('table');
+    container.append(table);
+  }
   
-  //creo un elemento 'tr' e lo appendo alla tabella
   let tr = document.createElement("tr");
   table.append(tr);
-
-  //setto un flag da usare per l'uscita dal ciclo for
   let isFirstTime = true;
 
-  //ciclo 'for of' che itera sugli oggetti (1° liv. dell'array)
   for(const currentObject of data.data)
   {
-    //creo variabilie che conterra 'n' righe, con n = n° oggetti nell'array
+    console.log(currentObject);
     let trn = document.createElement("tr");
-    table.append(trn); //appendo alla tabella
+    table.append(trn);
     
-    //ciclo 'for in' che itera sulle proprietà di ciascun oggetto
     for(const currentProperty in currentObject)
     {
-      //se vera, creo elemento <th>, ovvero l'intestazione HTML di una tabella
       if(isFirstTime === true)
       {
         let thTable = document.createElement('th');
         thTable.innerHTML = `${currentProperty}`;
         tr.append(thTable);
       }
-
-      //da qui in poi, si crea il resto della tabella HTML normalmente
       let td = document.createElement("td");
+
       if(currentProperty === "avatar")
       {
         td.innerHTML = `<img src="${currentObject[currentProperty]}" />`;
@@ -55,8 +78,6 @@ const buildTable = (data) => {
       }
       trn.append(td);
     }
-
-    //settiamo il flag a false, cosi prossima iterazione non crea <th>
     isFirstTime = false;
   }
 }
@@ -66,7 +87,17 @@ const buildTable = (data) => {
 // FUNZIONE ASYNC --> aspetta i dati esterni, poi costruisce la tabella
 const getData = async (pageCounterParam) => {
 pageCounterParam = 1;
-let path = "https://reqres.in/api/users?page=" + 1;
+
+  if (num_page == 1) {
+    console.log(path);
+    path = cambia_colleghi();
+    console.log(path);
+  }
+  else if (num_page == 2) {
+    console.log(path);
+    path = cambia_colleghi();
+    console.log(path);
+  }
 
   axios.get(path, {
       headers: {
@@ -75,14 +106,14 @@ let path = "https://reqres.in/api/users?page=" + 1;
     })
   .then((response) => {
     totalPages = response.data.total_pages;
-    if(pageCounter < totalPages) {
+    if(pageCounter < totalPages)
       pageCounter++;
-    }
-    else {
+    else
       pageCounter = 1;
       buildTable(response.data);
-    }
+
     isLoaded = false;
+    path = "https://reqres.in/api/users?page="; //RIPULISCO SEMPRE LA PATH a fine funzione
   })
   .catch((err) => console.log(err));
 }
@@ -96,8 +127,7 @@ const callData = pageCounterParam => {
 
 
 //////////////////////////////////////////////////////
-// FUNZIONI PAGELOAD (aggiunge un 'event-listener al bottone e poi chiama 
-// callData(), che a sua volta chiama getData (asincrona) che poi costruirà la tabella )
+// FUNZIONI PAGELOAD (chiama callData() )
 const pageLoaded = () => {
   let dataButton = document.querySelector("#dataButton");
 
@@ -110,7 +140,7 @@ const pageLoaded = () => {
 }
 
 //////////////////////////////////////////////////////
-// AGGIUNGIAMO EVENT-LISTENER tipo 'LOAD' ALL'OGGETTO WINDOW
+// AGGIUNGIAMO EVENT-LISTENER ALL'OGGETTO WINDOW
 window.addEventListener("load", (e) => {
   console.dir(e);
   pageLoaded();
