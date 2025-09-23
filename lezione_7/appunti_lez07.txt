@@ -1,0 +1,49 @@
+RIPRESA DEL CONCETTO DI ASINCRONIA
+
+axios.get().then() == async/await 
+
+- event loop: gestito dall'engine 'V8 (engine di Chrome)' di JS; se ha molto carico di lavoro, chiaramente rallenta la reattività del frontend
+-->soluzione: destrutturare gli algoritmi seguendo prassi controllate e solide 
+    --> ad esempio settando un set-timeout, tipo ogni 100 iterazioni fermati per tot tempo, al seguito del quale
+    l'engine va a prendere la successiva macrotask e ne esegue le operazioni fino al suo timeout, e cosi via
+    ---> qui siamo ancora in concetto di sincronia --> 'first-in, first-out'
+
+    --> 2 code: QUEUE MACROTASK / QUEUE MICROTASK
+    funzionano cosi:
+        - prima si esegue un macrotask (sincrono) fino alla fine del suo timeout
+        - prima di passare al successivo, si passa alla coda di microtask e vengono eseguiti quelli che hanno
+          concluso la promise (quelle non pronte sono in una sorta di pending)
+        - finiti i microtask, si passa al macrotask successivo
+    
+    onload(): è un evento/proprietà che viene eseguito quando il dom è costruito e tutte le risorse sono state caricate,
+    ovvero che tutte le immagini, richieste, risorse, dipendenze eccetera sono pronti;
+    -->domanda: è conveniente usarlo, aspettando tempo? dipende...a volte si, a volte no;
+
+    AXIOS (libreria) FONDAMENTALE PER LA GESTIONE DELLE RICHIESTE HTTP --> alternativa: FETCH-API
+    -> axios ha comunque contro: coinvolgimento terze parti, da installare, dipendenze ecc (fetch api non li ha)
+
+    PROMISES
+    CONCETTO FONDAMENTALE: con axios.get() si genera un oggeto di PROMISE, l'oggetto potrà ritrovarsi solamente in 3 stati.
+        1 - pending: l'oggetto è incaricato di ricevere la notifica dal browser quando questo ha le richieste pronte
+        2 - fullfid: cambio di stato, l'oggetto sa di avere ricevuto la notifica, quindi può finire nei MICROTASK
+        3 - rejected: se l'oggetto riceve un errore, cambia stato in rejected
+
+    axios.get().then(response) --> response conterrà i dati finali, json, immagini, risorse eccetera
+
+    PROMISE CHAINING-->le promises possono essere concatenate
+    
+    CONETTO DI BARRIERA: garanzia di esecuzione di alcuni microtask;
+
+
+    ESERCIZIO PER CASA:
+    fakestoreapi.com/products --> array json con prodotti generici
+    facendo un progetto nuovo ('prodotti') crearsi una pagin astandard html di negozio online, al caricamento
+    della pagina, chiamare con axios (con then e catch) questi dati di fakestoreapi e creare delle card
+    con struttura tipo flowbite, bootstrap o altri css framework
+    - tante card quanti sono i prodotti 
+    - header, footer, body
+
+    scritto dal prof: Esercizio: landing page, con header - footer, al caricamento della pagina caricate 
+    i dati da https://fakestoreapi.com/products con i dati ottenuti gestire la parte main con blocchi 
+    tipo le card di flowbite https://flowbite.com/docs/components/card/
+    Se la fate responsiva: top!

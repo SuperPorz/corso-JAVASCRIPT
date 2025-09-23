@@ -1,0 +1,46 @@
+RIPASSO CONCETTI lez precedente
+
+DOM - DOCUMENT OBJECT MODEL - albero a grafo degli oggetti del documento, essi sono logati tra loro
+
+i livelli di traversing del DOM sono un'astrazione del docente, non li si trovano sui libri.
+
+cicli FOR IN e FOR OF
+
+for in: recupera le etichette dell'iterabile (restituisce: text, comment, article, script...)
+for of: recupera il contenuto delle etichette
+
+
+2nd LIVELLO TRAVERSING DOME: si applica un filtro agli oggetti del DOM per mirare solo a quelli di tipo 1, cioè di tipo ELEMENT (no testi, no commenti ecc)
+
+-----------------------------------------------------------------------------
+OOP
+tratteremo le classi in JS ma solo per andare a comprendere alcuni concetti; per evitare ripetizione codice: EREDITARIETA' e POLIMORFISMO
+
+EREDITARIETA': 
+immaginiamo persona e gatto; hanno caratteristiche e azioni in comune(altezza, peso, camminare...), altre invece specifiche (fare fusa, lavorare...)--->creiamo una terza classe più astratta con le carratteristiche in comune, per esempio ANIMALE, e persona/gatto ne ereditano i dettagli (animale = classe o superclasse; persona/gatto = sotto-classe)
+osservazione: essendo astratta come classe, ANIMALE non può generare istanze (oggetti). Il motivo è che l'abbiamo creata con il solo scopo di risparmiare codice.-->in Java si dichiara la classe ANIMALE con "abstract" (giusto per esempio)
+
+l'approccio parte dalle classi più specializzate (sottoclassi) verso quelle più generaliste => approccio BOTTOM-UP
+
+Catene di classi astratte:
+Object <- EventTarget <- Node <- Element <- HTMLElement <- HTMLHeadingElement, HTMLParagraphElement, HTMLBodyElement, HTMLScriptElement, ecc.
+
+-SUPERCLASS: OBJECT (c'è ovunque: c++, java, C#...)
+-tipo: termine che ingloba classi e interfacce
+
+getter/setter ---> legati al concetto di INCAPSULAMENTO che serve a controllare che i dati forniti siano compatibili con quelli desiderati dalla classe
+-------------------------------------------------------------------------
+
+3rd LIVELLO TRAVERSING DOME: serve usare gli id attribute di html; la classe Element ha una proprietà id che fornisce proprio un id al tag 
+
+
+
+
+
+
+
+
+
+
+
+

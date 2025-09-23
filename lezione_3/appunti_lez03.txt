@@ -1,0 +1,11 @@
+TRAVERSING DEL DOM: navigare tra gli elementi html che sono oggetti di JS; il traversing si fa a 4 livelli
+
+DOM: GRAFO AD ALBERO DELLA STRUTTURA HTML; 
+
+PARENT-CHILD-SIBLING: genitore-figlio-fratellanza, concetti fondamentali in JS
+
+console.log(document) --> document è un oggetto
+
+console.log(document.documentElement)--> ci permette di parlare con il primo elemento del dom, cioè il nodo "HTML" che si vede nei dom-visualizer
+
+console.log(document.body.childNodes.length) ---> conta i NODI figli di BODY; childNodes non è un array, è una COLLECTION: ha gli indici, è iterabile, assomiglia ad un array...MA NON E' UN OGGETTO ARRAY E QUINDI NON SI POSSONO USARE METODI!!!

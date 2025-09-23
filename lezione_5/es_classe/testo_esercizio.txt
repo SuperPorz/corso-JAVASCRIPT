@@ -1,0 +1,17 @@
+//Esercizio.
+
+Esercizio: create una "tabella" di libri (un'arrey di almeno 20 oggetti che rappresentano libri).
+Ogni libro deve avere: titolo, autore, editore, codiceISBN, prezzo, sinossi, annoDiUscita.
+
+Creare, iterando sulla tabella, una sezione di articoli che diventi visibile all'interna di questa pagina HTML.
+Ogni proprietà del libro deve essere inserita in un paragrafo.
+
+Per ogni libro create un div e dentro un dato div devreste creare tanti paragrafi quante sono le info
+dei libri (Ogni proprietà del libro deve essere inserita in un paragrafo).
+body -> div -> p
+
+Creare delle classi css a piacere grazie alle quali, i titoli saranno in grassetto e la sinossi in italico.
+I div devono avere i bordi arrotondati e un colore di background.
+Gestite margini e spaziature in maniera tale da avere dei blocchi gradevoli alla vista.
+
+Aggiungere un pulsante che se cliccato richiami una funzione contenente la soluzione.
