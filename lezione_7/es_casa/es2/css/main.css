@@ -1,0 +1,180 @@
+/*----- General Purpose -----*/
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(111, 139, 139);
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body h1 {
+    font-size: 70px;
+}
+
+/*----- Header -----*/
+.header {
+    background: darksalmon;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
+.spacer {
+    padding: 20px;
+}
+
+/*----- menu ul -----*/
+.ul-inline {
+    background-color: wheat;
+    text-align: center;
+}
+
+.ul-inline li {
+    text-decoration: none;
+    display: inline;
+}
+
+.ul-inline li a{
+    text-decoration: none;
+    font-size: 30px;
+    font-style: italic;
+}
+
+/*----- container CARDS GLOBALE -----*/
+
+#cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; /* Centra le cards orizzontalmente */
+    gap: 40px; /* Spaziatura tra le cards */
+    padding: 20px;
+    max-width: 1200px; /* Larghezza massima */
+    margin: 0 auto; /* Centra il container nella pagina */
+}
+
+.card {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 280px; /* Larghezza fissa per ogni card */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.55);
+    background: darksalmon;
+    border: 3px solid brown;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.card #icon {
+    width: 100%;
+    height: 50px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    align-self: flex-end;
+}
+
+.card h5 {
+    font-size: 1.1em;
+    margin: 8px 0;
+    color: #333;
+    height: 60px; /* Altezza fissa per titoli multilinea */
+    overflow: hidden;
+}
+
+.card p {
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
+    height: 80px; /* Altezza fissa per descrizione */
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+
+/*----- Button -----*/
+#dataButton {
+	display: block;
+	background-color: #041aaa;
+	max-width: fit-content;
+	color: white;
+	padding: 10px;
+	border-radius: 8px;
+	margin: 8px 0;
+	cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+#dataButton:hover {
+	background-color: #046daa;
+}
+/*----- Media Query -----*/
+
+@media (max-width: 1200px) {
+    .header > h1 {
+        font-size: 3.3em;
+    }
+    
+    .header > p {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 992px) {
+    .header > h1 {
+        font-size: 2.7em;
+    }
+    
+    .header > p {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .header > h1 {
+        font-size: 2.1em;
+    }
+    
+    .header > p {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 576px) {
+    .header > h1 {
+        font-size: 1.5em;
+    }
+    
+    .header > p {
+        font-size: 1em;
+    }
+}
+
+
+
+
+
+
