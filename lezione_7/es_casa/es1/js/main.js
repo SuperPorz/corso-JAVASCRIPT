@@ -5,9 +5,9 @@
 let pageCounter = 1;
 let totalPages = 0;
 let isLoaded = false;
-var num_page = 1;
-var dataButton = document.querySelector("#dataButton");
-var path = "https://reqres.in/api/users?page=";
+let num_page = 1;
+let dataButton = document.querySelector("#dataButton");
+let path = "https://reqres.in/api/users?page=";
 dataButton.innerHTML = 'Get Colleagues ' + num_page;
 
 
@@ -90,12 +90,12 @@ pageCounterParam = 1;
 
   if (num_page == 1) {
     console.log(path);
-    path = cambia_colleghi();
+    path = cambia_colleghi(num_page);
     console.log(path);
   }
   else if (num_page == 2) {
     console.log(path);
-    path = cambia_colleghi();
+    path = cambia_colleghi(num_page);
     console.log(path);
   }
 
@@ -121,7 +121,7 @@ pageCounterParam = 1;
 
 //////////////////////////////////////////////////////
 // FUNZIONE CALL DATA (chiama getData() )
-const callData = pageCounterParam => {
+const callData = (pageCounterParam,) => {
   getData(pageCounterParam);
 }
 
