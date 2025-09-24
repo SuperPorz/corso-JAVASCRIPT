@@ -3,14 +3,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // PREPARAZIONE VARIABILI
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // step 1: aggiungo event-listener all'oggetto window
 window.addEventListener("load", (e) => {
     console.dir(e);
     pageLoaded();
 });
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // step 2: dichiaro funzione->quando viene chiamata, chiama funz. getData(), che
@@ -19,35 +17,31 @@ const pageLoaded = () => {
     getData();
 }
 
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // step 3: FUNZIONE ASYNC -> aspetta i dati esterni, poi costruisce le CARDS
 const getData = async () => {
     let path = "https://fakestoreapi.com/products";
 
-axios
-    .get(path, {headers: {'x-api-key': 'reqres-free-v1'}})
-    .then((response) => {
-        console.log(response.data); //print ARRAY
-        console.table(response.data);
-        console.log(response.status);
-        console.log(response.config);
-        
-        //costruzione menu categorie
-        buildMenu(response.data);
-        
-        //costruzione cards
-        buildCards(response.data);
-    })
-    .catch((err) => console.log(err));
+    axios
+        .get(path, {headers: {'x-api-key': 'reqres-free-v1'}})
+        .then((response) => {
+            console.log(response.data); //print ARRAY
+            console.table(response.data);
+            console.log(response.status);
+            console.log(response.config);
+            
+            //costruzione menu categorie
+            buildMenu(response.data);
+            
+            //costruzione cards
+            buildCards(response.data);
+        })
+        .catch((err) => console.log(err));
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // step 4: FUNZIONE BUILD HTML -> costruisce il menu selezione categorie
 const buildMenu = (data) => {
-
     let menu_container = document.querySelector("#menu-container");
     let ul = document.createElement("ul");
     ul.className = "ul-inline"
@@ -57,25 +51,22 @@ const buildMenu = (data) => {
     data.forEach(object => {
         const nome_categoria = object.category;
             
-            if(!categorie.has(nome_categoria)) {
-                categorie.add(nome_categoria);
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                
-                a.textContent = nome_categoria;
-                a.setAttribute("href", "index.html?cat=" + nome_categoria)
-                a.className = "spacer"
-                li.append(a);
-                ul.appendChild(li);
+        if(!categorie.has(nome_categoria)) {
+            categorie.add(nome_categoria);
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            
+            a.textContent = nome_categoria;
+            a.setAttribute("href", "index.html?cat=" + nome_categoria)
+            a.className = "spacer"
+            li.append(a);
+            ul.appendChild(li);
 
-                console.log(object.rating);
-                console.log(object.description);
-
-            }
+            console.log(object.rating);
+            console.log(object.description);
         }
-    )
+    })
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // step 5: FUNZIONE BUILD HTML -> costruisce le Cards appendendo HTML al container
@@ -110,28 +101,47 @@ const buildCards = (data) => {
         const rating = Math.round(object.rating.rate);
         img_2.setAttribute("src", `icons/rating${rating}.png`);
         img_2.setAttribute("alt", `Rating: ${rating} stelle`);
-        img_2.id = "icon"
-        div_card.appendChild(img_2);
+        img_2.id = "icon";
 
-        //creo <span> da affiancare a icona rating per printare totale VOTI
+        //creo <span> per i voti
         let span = document.createElement("span");
         span.textContent = "Voti: " + object.rating.count;
-        div_card.appendChild(span);
 
-        //creo subdiv per contenere prezzo e bottone di aggiunta carrello
-        let subdiv = document.createElement("div");
+        //creo sezione rating (icona + voti sulla stessa riga)
+        let ratingSection = document.createElement("div");
+        ratingSection.className = "rating-section";
+        ratingSection.appendChild(img_2);
+        ratingSection.appendChild(span);
+        div_card.appendChild(ratingSection);
+
+        //creo span per il prezzo
         let span_2 = document.createElement("span");
         span_2.textContent = object.price + " $";
-        subdiv.appendChild(span_2);
 
+        //creo bottone "SCIALACQUA SOLDI"
         let a_2 = document.createElement("a");
         a_2.setAttribute("href", "#");
-        a_2.textContent = "SCIALACQUA SOLDI";
-        a_2.id = "dataButton"
-        subdiv.appendChild(a_2);
+        a_2.textContent = "SCIALACQUA\nSOLDI"; // \n per andare a capo
+        a_2.id = "dataButton";
 
-        //appendo il subdiv al <div> della card
-        div_card.appendChild(subdiv);
+        //creo sezione prezzo
+        let priceSection = document.createElement("div");
+        priceSection.className = "price-section";
+        priceSection.appendChild(span_2);
+
+        //creo sezione bottone
+        let buttonSection = document.createElement("div");
+        buttonSection.className = "button-section";
+        buttonSection.appendChild(a_2);
+
+        //creo sezione combinata prezzo + bottone
+        let priceButtonSection = document.createElement("div");
+        priceButtonSection.className = "price-button-section";
+        priceButtonSection.appendChild(priceSection);
+        priceButtonSection.appendChild(buttonSection);
+
+        //appendo la sezione combinata al <div> della card
+        div_card.appendChild(priceButtonSection);
 
         // Appendi la card al container
         cards_container.appendChild(div_card);
