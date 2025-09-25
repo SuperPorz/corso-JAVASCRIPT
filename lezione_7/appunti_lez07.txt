@@ -33,3 +33,76 @@ axios.get().then() == async/await
     PROMISE CHAINING-->le promises possono essere concatenate
     
     CONETTO DI BARRIERA: garanzia di esecuzione di alcuni microtask;
+
+
+
+
+
+
+
+    APPUNTI ERIC
+
+    23/09
+in JS non c’è un multitasking, il programma è single thread, ma c’è uno stack di code di esecuzione che gestisce le asincronie. Per questo non viene bloccato il programma se una funzione asincrona viene eseguita (a patto che la parte di blocco in attesa sia “arginato”).
+
+è l’engine che gestisce le code di esecuzione, con un EVENT LOOP.. Cicli molto grossi e numerosi è meglio gestirli in n cicli più piccoli destrutturati e ognuno con dei timeout, in modo da non rischiare di bloccare il programma. In questo modo col set timeout non sto più gestendo un unico blocco di istruzioni, ma tante più piccole gestite in coda e che man mano vengono esauriti. Questo fa sì di aprire delle aree di respiro in modo che possa essere eseguito qualcosa tra un macro task e un altro, creando una FIFO (first in first out). Fin qui siamo ancora in sincronia.
+
+
+c’è una queue di macrotask su cui l’event loop gira, ed esegue un task per volta. OGNI VOLTA che un macro task viene terminato, c’è un controllo in cui viene inserito un task di un’altra coda: la queue di microtask, dove vengono messi i task in await con promise risolta (e notificata dal browser). In questo momento, viene controllato se c’è stata una risoluzione di una promise di una funzione asincrona in micro stack ci sono microtask in coda (quindi già fulfilled), e se ci sono vengono eseguiti TUTTI prima di passare al prossimo macrotask in coda.
+
+
+Come si vede, sono tutti task sequenziali ma su due code, quindi si ribadisce che è tutto single thread.
+
+
+La destrutturazione dell’algoritmo possiamo farla sia in macrotask che in microtask (con await o then).
+
+
+un set timeout dopo una funzione vuol dire: aspetta questo tempo prima di partire con il prossimo codice/ciclo. e ogni set timeout forza un’interruzione di macro task, quindi una verifica nei microtask. Il conteggio parte da quando viene settato, non dal termine del codice abbinato. Quindi si può utilizzare come temporizzatore (ma è oneshot, mentre i set interval eseguono ogni tot un’azione)
+
+
+Torniamo sull’ .onload della volta scorsa: window.onload è un evento che viene lanciato automaticamente quando tutto (dom, css, risorse richieste dalla pagina) è stato caricato e tutte le dipendenze sono state risolte (defer aspetta solo il caricamento del dom, non aspetta le risorse). Quando viene lanciato, interpella la funzione di callback che a sua volta chiama pageLoaded, che tra le altre cose aggiunge un listener di eventi sul click su #dataButton. In questo caso specifico al click viene poi richiamata la funzione callData, che funge da controllore sulla prontezza della richiesta asincrona (per non generare tante volte la stessa richiesta) e che, se sono pronti, a sua volta chiama getData.
+
+
+async/await con try/catch è una sintassi per compattare la sintassi classica delle promise, che è { codice } .then{ codice } .catch{ codice }
+
+Le fetch API non fanno usare direttamente il then, ma deve essere “tradotto” da un oggetto JSON (quindi primo step: accedo al dato; secondo: lo vado a usare). Che sono step asincroni, quindi c’è una gestione più destrutturata che le rendono particolarmente adatte per ottimizzare le attese.
+
+
+il GET (anche .get in JS, che specifica appunto il tipo di richiesta GET) infatti genera una promise.
+
+
+Le promise possono essere concatenate nel codice in modo da poter gestire un’operazione asincrona con delle dipendenze da risorse, quindi di promise precedenti. Le fetch API possono gestire questa cascata dietro le quinte senza dover esplicitarla noi nel codice.
+
+
+Axios deserializza l’oggetto JSON mandato da ReqRes, trasformandolo in un oggetto che lo rispecchia alla perfezione, sotto forma di proprietà e Arrays innestati.
+
+In console posso vedere il JSON nella scheda rete, dove viene fatta la richiesta GET, e cliccando sulla risposta, mentre l’oggetto lo vediamo stampato in console grazie ai console.log messi nel codice. Se la get fosse sbagliata, riceveremmo un oggetto axios (conseguente a status rejected della promise della get, quindi gestito in uno statement catch) che descrive l’errore.
+
+
+approfondimento sull’event loop: https://www.codegrind.it/documentazione/javascript/event-loop
+
+
+l’oggetto document rappresenta l’impaginato, window proprio la finestra
+
+
+è preferibile usare addEventListener (con “load in questo caso) quando possibile piuttosto che ad esempio .onload perché è diffuso anche in altri codici e framework
+
+
+DOMContentLoaded è un evento che scatta quando il dom è caricato, ma non aspetta le risorse (a meno di cache). Lo usiamo anche se abbiamo già il defer perché, a differenza del deferring che viene eseguito quando il dom è costruito la prima volta, il DOMCOntentLoad è sempre eseguito dopo il defer ma anche dopo eventuali manipolazioni del dom contenute nel codice, quindi dopo il codice stesso.
+
+DOM Pronto → scatta il defer → scatta il DOMContentLoaded → scatta il load dopo che tutte le risorse sono pronte
+
+
+sull’oggetto evento è interessante la proprietà type, che è il nome dell’evento, ma anche gli altri possono essere utilizzati per scrivere codice molto preciso e pulito.
+
+
+l’evento “click” è un PointerEvent, discendente da event e che contiene molte più informazioni specifiche.
+
+
+Ora possiamo aggiungere rispetto all’altra volta che il re-rendering non avviene a ogni ciclo e ad ogni append, ma V8 ottimizza facendole solo alla fine. MA l’overhead sta nel fatto che le modifiche vengono accodate in maniera non ottimizzata (dirty marking). quindi: ad ogni ciclo tiene traccia delle modifiche, poi alla fine fa una rirenderizzazione unica. Meglio comunque usare un documentFragment
+
+
+la parola riservata “this”  fa riferimento all’oggetto in ciclo attualmente, MA dipende dal contesto! se è in una funzione freccia, questa farà riferimento all’oggetto che ha chiamato la funzione in callback
+
+
+se invece di this ci fosse e.target, punterei all’evento che ha ricevuto il click (che ha subito l’evento). se ci fosse e.currentTarget farebbe riferimento al td che ha l’eventListener, sfruttando la bubble

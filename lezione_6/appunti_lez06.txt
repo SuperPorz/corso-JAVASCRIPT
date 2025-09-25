@@ -1,0 +1,97 @@
+16/09
+console.table(varStrutturaDati) → in tabella in console la struttura dati indicata
+
+Progetto Team
+faremo una “pre” SPA (single page application), pagina singola dove alcune parti sono fisse (con codice HTML definito a priori) e alcune costruite dinamicamente (generate con JS). attraverso una struttura dati fornita da una API esterna. Questa darà dati JSON che tradurremo in un array di oggetti e che useremo per generare una tabella di elementi visivi e testuali.
+
+Vedremo come utilizzare:
+
+temporizzatori + generazione a cadenza regolare di elementi (popup, banner)
+
+eventi e gestione eventi
+
+gestione eccezioni
+
+animazioni JS e associazioni di stili e classi
+
+axios (libreria esterna) → nata per gestire richieste e risposte http. La usiamo anche per provare ad utilizzare una libreria esterna, e la prendiamo da una cdn. Ha anche un traduttore interno di JSON
+
+aspetti di sicurezza e sanitizzazione codice
+
+API esterne e passaggio di dati (reqres.in è la fake API che useremo)
+
+
+i defer su più script garantiscono non solo di essere avviati dopo il caricamento del DOM, ma anche di mantenere la sequenzialità indicata degli script in modo da poter garantire le dipendenze.
+
+
+la minificazione è un processo che compatta il codice togliendo la formattazione ad uso umano, e sostituendo variabili leggibili con variabili brevi, in modo da compattare, ottimizzare e risparmiare sul peso. Viene fatta in automatico con certe procedure tramite motori di minificazione, non manualmente.
+
+
+Notare che il bottone non ha l’onclick: è obsoleto e sconsigliato usarlo. Meglio utilizzare una gestione eventi, così da poter sfruttare l’oggetto evento che il listener restituisce e le sue proprietà (cosa che con l’onclick si perde).
+
+
+ultima riga del codice:
+
+window.onload = () => pageLoaded();
+
+window.onload → è un evento, che scatta quando quando la finestra è stata completamente caricata. si può usare per far susseguire altro codice, tramite una funzione che viene chiamata senza parametri (funzione anonima, o anche una funzione definita da noi ma chiamata senza parentesi).
+
+() => pageLoaded() → questa è una funzione “freccia” e serve a compattare una funzione CON UNA SOLO ISTRUZIONE. equivale a:
+
+function …() {
+
+	pageLoaded();
+
+}
+
+
+quindi si omette il blocco di graffe e si usa la freccia con dopo l’istruzione. In realtà si possono usare anche con un blocco di funzioni: => { codice }
+
+
+quindi, quando la finestra è caricata, esegui una funzione () che esegue altre funzioni ( pageLoaded() )
+
+
+se fossimo certi di dover usare solo una funzione, la sintassi sarebbe:
+
+window.onload = pageLoaded;
+
+
+le funzioni freccia sono sempre anonime (a meno di non assegnarle ad una variabile), possono avere degli argomenti, ed essendo anonime non sono richiamabili. Spesso infatti vengono associati a degli eventi, in modo che la funzione venga eseguita quando l’evento si verifica.
+
+
+le funzioni freccia sono diverse anche nell’hoisting rispetto alle funzioni classiche.
+
+
+la funzione pageLoaded rende cliccabile il bottone e vi collega la funzionalità, e nel contempo ed indipendentemente dal bottone fa partire i temporizzatori dei banner e della scritta a comparsa lettera per lettera.
+
+
+oggettoRicettoreDellEvento.addEventListener(nomeEvento, funzioneCallBack) → aggiungo un ascolto su un evento, ad esempio “click”, sull’oggetto che riceve l’evento. il primo parametro è il nome dell’evento, il secondo la funzione che viene chiamata ed eseguita in risposta all’evento. Nel caso in cui venga indicata una funzione freccia, qui ci sarà l’argomento della funzione freccia (che sono sempre anonime e non richiamabili) o più argomenti tra parentesi.
+
+Le parentesi tonde di una funzione freccia infatti si possono omettere quando c’è solo un argomento. Se usassi le tonde vuote invece, se non vengono usati argomenti dentro al blocco la funzione andrebbe, ma mi perderei la possibilità di utilizzare le proprietà dell’oggetto, che se provassimo ad iterare vedremmo che avrebbe una miriade di proprietà valorizzate, come target, offsetX e Y, ecc ecc, derivate dall’interfaccia “event”).
+
+
+
+Tutti i nodi sono targettabili da eventi. Infatti, a monte dell’interfaccia Node c’è EventTarget nella strutturazione delle interfacce (vedi lezione su classi ed ereditarietà)
+
+
+In realtà comunque, una funzione con freccia può essere nominata e reinvocata, se l’assegno ad una variabile. La chiamata cmq segue la sintassi tradizionale. Le differenze stanno in altre piccolezze non trattate (APPROFONDISCI)
+
+—----------------------------
+
+
+la funzione custom getData introduce funzionalità ancora non viste: una risposta asincrona, e una gestione di eccezioni. In questa funzione fetchamo dei dati fittizi da ReqRes, rielaborati con Axios.
+
+
+fetch vuol dire recuperare
+
+
+Reqres permette di ottenere JSON strutturati, in base alla richiesta fatta. ad esempio, https://reqres.in/api/users?page=1 fetcha (recupera) una lista di utenti fittizi di ReqRes, con una serie di dati omogenei per ogni utenti.
+
+Axios prende i dati restituiti da questa url di ReqRes (quindi il JSON), ma dentro alla variabile response che torna indietro da Axios è non più un JSON, ma un oggetto con determinate proprietà generato da Axios, tra cui c’è .data che contiene i dati del JSON deserializzati come array di oggetti JS a partire dal JSON.
+
+
+Finchè si lavora in locale la computazione è sincrona. Abbiamo la garanzia che alla riga successiva quello che è stato scritto alla precedente è stato processato.
+
+Quando si tratta di comunicazioni tra nodi, non è affatto garantita, nè saprò quanto tempo ci metterà. Ecco quindi che è necessario dare l’istruzione di ATTENDERE la risposta e di procedere con la processazione del codice una volta ricevuta la risposta. La latenza è quindi dato dal tempo di invio richiesta, tempo di processazione risposta e tempo di trasmissione risposta. l’istruzione async/await dà proprio la possibilità di attendere quando c’è possibile latenza. è quindi una operazione ASINCRONA. 
+
+Tutte le volte che una funzione deve gestire un’asincronia, va marcata con la parola riservata async prima di function (o nel caso di una funzione freccia: async (param) => {}  ). Questo fa sì anche che l’applicazione non venga bloccata in attesa della risposta, ma che possa intanto fare altro. Ciò che tiene traccia del processo asincrono è un oggetto chiamato promise, che è una sorta di macchina stato che monitora il processo asincrono e comunica quando è completo, passando da uno stato pending a uno stato fulfilled (o rejected se la promise non viene mantenuta). 
