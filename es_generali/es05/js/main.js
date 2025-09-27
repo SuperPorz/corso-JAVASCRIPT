@@ -2,16 +2,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // PREPARAZIONE VARIABILI
-let button = document.querySelector("#button");
-console.log(button);
-let paragraph = document.querySelector("#testo");
-console.log(paragraph);
 
 ////////////////////////////////////////////////////////////////////////////////
 // step 1: aggiungo event-listener all'oggetto window e chiamo pageLoaded()
 window.addEventListener("load", (e) => {
     //print di informazioni
-    console.dir(e);
+    console.dir("tipo evento: " + e.type);
 
     //azioni che partono con l'evento
     e.preventDefault(); // Previene il comportamento default
@@ -20,15 +16,9 @@ window.addEventListener("load", (e) => {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// step 2: funzione pageLoad: al caricamento, assegna gli ev-listener al bottone
+// step 2: funzione pageLoad: al caricamento, eseguo le richieste dell'esercizio
 const pageLoaded = () => {
-    button.addEventListener("click", e => {
-        cambia_testo();
-    });
+    let p = document.body.firstElementChild.firstElementChild;
+    let parent_id = p.parentElement.id;
+    console.log("PARENT ID: " + parent_id);
 };
-
-////////////////////////////////////////////////////////////////////////////////
-// step 3: funzione di modifica dinamica del layout web
-const cambia_testo = () => {
-    paragraph.textContent = "Benvenuto nel DOM!";
-}

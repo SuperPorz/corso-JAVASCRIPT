@@ -3,9 +3,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // PREPARAZIONE VARIABILI
 let button = document.querySelector("#button");
-console.log(button);
-let paragraph = document.querySelector("#testo");
-console.log(paragraph);
+let element1 = document.body.firstChild.nextSibling;
+
+//altri modi per selezionare il "p" target
+let element2 = document.body.children[0];
+let element3 = document.querySelector("body > p");
+let element4 = document.querySelector("#messaggio"); //classico
+
+console.log(element1);
+console.log(element2);
+console.log(element3);
+console.log(element4);
 
 ////////////////////////////////////////////////////////////////////////////////
 // step 1: aggiungo event-listener all'oggetto window e chiamo pageLoaded()
@@ -20,15 +28,17 @@ window.addEventListener("load", (e) => {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// step 2: funzione pageLoad: al caricamento, assegna gli ev-listener al bottone
+// step 2: funzione pageLoad: al caricamento, assegna gli ev-list. ai bottoni
 const pageLoaded = () => {
     button.addEventListener("click", e => {
-        cambia_testo();
+        replace_element();
     });
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// step 3: funzione di modifica dinamica del layout web
-const cambia_testo = () => {
-    paragraph.textContent = "Benvenuto nel DOM!";
+// step 3: funzione->sostituisce vecchio elemento con nuovo
+const replace_element = () => {
+    let new_element = document.createElement("h2");
+    new_element.textContent = "Nuovo Titolo";
+    element1.replaceWith(new_element);
 }

@@ -3,9 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // PREPARAZIONE VARIABILI
 let button = document.querySelector("#button");
-console.log(button);
-let paragraph = document.querySelector("#testo");
-console.log(paragraph);
+let li_elements = document.querySelectorAll("li");
+console.log(li_elements);
 
 ////////////////////////////////////////////////////////////////////////////////
 // step 1: aggiungo event-listener all'oggetto window e chiamo pageLoaded()
@@ -20,15 +19,17 @@ window.addEventListener("load", (e) => {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// step 2: funzione pageLoad: al caricamento, assegna gli ev-listener al bottone
+// step 2: funzione pageLoad: al caricamento, assegna gli ev-list. ai bottoni
 const pageLoaded = () => {
     button.addEventListener("click", e => {
-        cambia_testo();
+        childs_text();
     });
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// step 3: funzione di modifica dinamica del layout web
-const cambia_testo = () => {
-    paragraph.textContent = "Benvenuto nel DOM!";
+// step 3: funzione->mostra in console i testi contenuti negli <li>
+const childs_text = () => {
+    li_elements.forEach( li =>
+        console.log("contenuto: " + li.textContent)
+    )
 }
