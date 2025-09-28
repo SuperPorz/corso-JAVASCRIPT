@@ -1,0 +1,9 @@
+.table {
+    background-color: coral;
+    border: 3px;
+    color: aliceblue;
+    font-size: 65px;
+    border-color: black;
+    border-width: 1px;
+    border-style: dashed;
+}
