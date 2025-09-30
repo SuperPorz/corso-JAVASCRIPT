@@ -1,0 +1,17 @@
+CONCLUSIONE PROGETTO SANIT
+
+blubble face
+
+esercizio:
+fare cartella progettino "griglia";
+Creare una sorta di scacchiera 4x4, ogni quadrato è un div e si assegna un
+background color a ciascuno;
+- inizialmente tutti verdi ma gestire gli stili in modo da rendere distinguibili
+    i div;
+- cliccando su un quadrato, quel div diventa blu;
+- dopo aver cliccato il primo, cliccando un altro div, il precedente torna verde;
+- sfruttare la bubble face: i div devono avere un genitore unico "papà-div";
+- non assegnare l'event-listener a ogni quadrante, ma solo al GENITORE;
+- cliccando fuori dal genitore, tutto torna verde;
+
+

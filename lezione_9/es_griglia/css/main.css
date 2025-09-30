@@ -1,0 +1,111 @@
+/*----- General Purpose -----*/
+
+* {
+    /*Con border-box comprendo nella
+    larghezza anche i padding e i bordi.*/
+    box-sizing: border-box;
+
+    /*Con content-box NON comprendo nella
+    larghezza anche i padding e i bordi.
+    box-sizing: content-box;*/
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    /*font-size: 32px;*/
+}
+
+.rowSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/*----- GRID -----*/
+#grid-padre {
+    width: 600px;
+    height: 600px;
+    border-style: dotted;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap
+}
+
+.grid-figlio {
+    width: 140px;
+    height: 140px;
+    border-style: double;
+}
+
+/*----- Colours -----*/
+
+.pBlue {
+    background-color: blue;
+}
+
+.pVerde {
+    background-color: green;
+}
+
+.pRosso {
+    background-color: red;
+}
+
+/*----- Border Colours -----*/
+
+.aaa {
+    border: 1px solid #AAA;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.aqua {
+    border: 1px solid aqua;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+/*----- Media Query -----*/
+
+@media (max-width: 1200px) {
+    .header > h1 {
+        font-size: 3.3em;
+    }
+    
+    .header > p {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 992px) {
+    .header > h1 {
+        font-size: 2.7em;
+    }
+    
+    .header > p {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .header > h1 {
+        font-size: 2.1em;
+    }
+    
+    .header > p {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 576px) {
+    .header > h1 {
+        font-size: 1.5em;
+    }
+    
+    .header > p {
+        font-size: 1em;
+    }
+}
