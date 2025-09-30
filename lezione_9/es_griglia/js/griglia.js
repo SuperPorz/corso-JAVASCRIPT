@@ -7,7 +7,7 @@ window.addEventListener("load", (e) => pageLoaded(e));
 let grid_padre = document.getElementById('grid-padre');
 let grid_figli = grid_padre.children;
 
-// step 2
+// step 2: funzione -> chiamo costruz. griglia + aggiungo event al document
 const pageLoaded = (e) => {
     spawn_grid();
     document.addEventListener("click", switch_class_grid);
@@ -17,39 +17,33 @@ const pageLoaded = (e) => {
 const spawn_grid = () => {  
     for(let i = 1; i <= 16; i++) {
         let grid_figlio = document.createElement('div');
-        grid_figlio.className = "grid-figlio divVerde";
+        grid_figlio.className = "divVerde";
         grid_padre.appendChild(grid_figlio);
     }
 }
 
-// step 4a: funzione che switcha le classi
+// step 4: funzione che switcha le classi
 const switch_class_grid = (e) => {
     
-    let x = document.querySelector('.divBlu');
+    let div_blu = document.querySelector('.divBlu');
+    let obj = e.target; //abbreviazione
 
     if (e.currentTarget == document) {
-        if (e.target.className == "grid-figlio divVerde") {
-            e.target.classList.toggle("divVerde");
-            e.target.classList.toggle("divBlu");        
+        if (obj.className == "divVerde" ||
+             obj.className == "divBlu") {
+            ['divVerde', 'divBlu']
+            .forEach( className => obj.classList.toggle(className));     
         }
-        else if (e.target.className == "grid-figlio divBlu") {
-            e.target.classList.toggle("divBlu");
-            e.target.classList.toggle("divVerde");
-        }
-        if (x != undefined) {
-            x.className = "grid-figlio divVerde";
+        if (div_blu != undefined) {
+            div_blu.className = "divVerde";
         }
     }
     else {
-        if (x != undefined) {
-            x.className = "grid-figlio divVerde";
+        if (div_blu != undefined) {
+            div_blu.className = "divVerde";
         }
     }
-    console.log("--------");
     console.log("CURRENT TARGET: ", e.currentTarget);
-    console.log("TARGET: ", e.target);
+    console.log("TARGET: ", obj);
     console.log("--------");
 }
-
-
-// per indentare quella merda a 2 spazi: ctrl+shift+p -> 'reindent lines'

@@ -34,7 +34,7 @@ body {
     flex-wrap: wrap
 }
 
-.grid-figlio {
+#grid-padre > div {
     width: 140px;
     height: 140px;
     border-style: double;
