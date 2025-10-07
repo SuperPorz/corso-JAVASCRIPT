@@ -1,0 +1,14 @@
+MODULI JS
+
+Sono file JS a tutti gli effetti, ma hanno particolarità e modalità d'uso:
+- 'use script' e 'defer' sono inclusi dall'attributo 'type':
+    <script type="module" src="js/code_progress.js"></script>
+- quando più moduli accedono ad una risorsa condivisa, la risorsa viene caricata
+una volta sola;
+
+- se manipolo risorse in un modulo, quelli successivi vedranno quelle modifiche
+
+
+libreria rxJS: gestire eventi e instradarli in una pipeline di flusso codice;
+
+oss. si può scrivere vanilla JS con approccio moderno ai moduli;

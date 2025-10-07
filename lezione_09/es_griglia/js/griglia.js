@@ -28,21 +28,16 @@ const switch_class_grid = (e) => {
     let div_blu = document.querySelector('.divBlu');
     let obj = e.target; //abbreviazione
 
-    if (e.currentTarget == document) {
+    if (e.currentTarget == document) {//si può compattare
         if (obj.className == "divVerde" ||
              obj.className == "divBlu") {
-            ['divVerde', 'divBlu']
-            .forEach( className => obj.classList.toggle(className));     
+            ['divVerde', 'divBlu'].forEach( className => obj.classList.toggle(className));  
         }
-        if (div_blu != undefined) {
+        if (div_blu != undefined) {//si può evitare questa parte->semplificare
             div_blu.className = "divVerde";
         }
     }
-    else {
-        if (div_blu != undefined) {
-            div_blu.className = "divVerde";
-        }
-    }
+
     console.log("CURRENT TARGET: ", e.currentTarget);
     console.log("TARGET: ", obj);
     console.log("--------");
