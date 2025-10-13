@@ -426,7 +426,7 @@ function setJsonForm()
         .then(function (data) {
             console.log(data);
             console.log(data.data);
-            //buildResponseInterface(JSON.stringify(data.data));
+            buildResponseInterface(JSON.stringify(data.data));
         })
         .catch(function (error) {
             console.log(error)

@@ -39,8 +39,8 @@ function setJsonForm()
               headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
           })
           .then(function (data) {
-              console.log("form inviato correttamente");
-              //codice che gestisce cosa fare con l'invio dati
+              console.log("form PREPARATO correttamente");
+              buildResponseInterface(JSON.stringify(data.data));
           })
           .catch(function (error) {
               console.log(error);
@@ -58,26 +58,24 @@ function setJsonForm()
 function checkForm_username(objectData) {
   console.log(objectData);
   const nome = objectData.username;
-  const regex1 = /[^a-zA-Z\s]/g;
-  const regex2 = /^(?!.{3,16}$).*/g;
-  //const regex3 = /^[a-zA-Z]{3,16}$/g; //regex unica (da cambiare logica iterativa)
+  const regex1 = /^[a-zA-Z]{3,16}$/; //regex caratteri min 3 max 16, solo lettere no special chars
 
-  if(regex1.test(nome.value)) { //controllo presenza caratteri speciali
-    return false
-  }
-  if(regex2.test(nome.value)) { //controllo lunghezza min e max della stringa
-    return false
-  }
-  return true;
-}
-
-function checkForm_email(objectData) {//logica inversa rispetto allo username
-  console.log(objectData);
-  const email = objectData.email;
-  const regex1 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g; //regex positiva per pattern email
-
-  if(regex1.test(email.value)) {
+  if(regex1.test(nome)) {
+    console.log('nome valido');
     return true
   }
+  console.log('nome invalido');
+  return false;
+}
+
+function checkForm_email(objectData) {
+  const email = objectData.email;
+  const regex1 = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; //regex positiva per pattern email
+  console.log(email);
+  if(regex1.test(email)) {
+    console.log('mail valida');
+    return true
+  }
+  console.log('mail invalida');
   return false;
 }
