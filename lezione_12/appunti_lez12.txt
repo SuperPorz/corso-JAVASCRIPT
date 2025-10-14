@@ -1,0 +1,6 @@
+ripassati moduli e loro implementazione (default export, mass export ecc);
+
+ARGOMENTO MODULI: ponte con strumenti più avanzati (vite, react ecc)
+
+npm: package manager di JS (simile a PIP)
+VITE: 
