@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Luca Bonacorsi">
+        <meta name="description" content="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).">
+        <title>I love JS!</title>
+        <link rel="stylesheet" href="src/css/main.css">
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+        <script type="module" src="src/main.js"></script>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header headerImage">
+            <h1>Our Team</h1>
+            <p class="spacer"></p>
+            <p id="pTitolo"></p>
+        </header>
+
+        <!-- Banner -->
+        <section id="bannerSection" class="rowSection aaa"></section>
+
+        <!-- Table -->
+        <section class="rowSection aaa">
+            <div id="container"></div>
+        </section>
+
+        <!-- Founder Section  required pattern="[a-zA-Z]*" -->
+        <section id="founderSection" class="rowSection aaa"></section>
+
+        <!-- Section Form -->
+        <section class="rowSection aaa">
+        
+            <form class="flexForm">
+                <label for="nomeText">Nome:</label> 
+                <input type="text" id="nomeText" name="username" placeholder="Nome.">
+
+                <label for="emailText">Email:</label>
+                <input type="text" id="emailText" name="email" placeholder="Email.">
+
+                <input type="submit" value="Invia">
+            </form>
+
+        </section>
+
+        <!-- Button -->
+        <section class="rowSection aaa">
+            <button id="dataButton">Get Colleagues</button>
+        </section>
+
+        <!-- Image -->
+        <section class="rowSection aaa">
+            <img id="company" src="https://www.shutterstock.com/shutterstock/photos/1932620969/display_1500/stock-photo-casually-dressed-young-businessman-walking-outside-along-a-footpath-by-an-office-complex-in-autumn-1932620969.jpg?cache=013">
+        </section>
+    </body>
+</html>
