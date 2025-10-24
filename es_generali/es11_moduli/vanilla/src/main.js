@@ -17,8 +17,6 @@ let intervalID = null;
 let classes = ["pBlue", "pAzzurro", "pRosso", "pRosa", "pGiallo"];
 
 //inizializzazione dati tabella Colleagues
-let pageCounter = 1;
-let totalPages = 0;
 let isLoaded = false;
 
 const callData = pageCounterParam => {
@@ -46,7 +44,7 @@ const pageLoaded = () => {
     //sezione Get Colleagues
     let dataButton = document.querySelector("#dataButton");
     dataButton.addEventListener("click", e => {
-        callData(pageCounter);
+        callData();
     });
 
     // sezione scritta animata
